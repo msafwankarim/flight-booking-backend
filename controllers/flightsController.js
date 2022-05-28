@@ -4,6 +4,15 @@ const getAllFlights = async (req, res) => {
   const query = req.query;
   console.log(query);
 
+  if (
+    Object.keys(query).length == 0 ||
+    !query.departureLocation ||
+    !query.destination ||
+    !query.departureDate
+  )
+    return res.status(400).json({ error: "Bad request" });
+
+  const seats = query.seats * 1 || 1;
   let nextDay = new Date(req.query.departureDate);
   nextDay.setDate(nextDay.getDate() + 1);
 
@@ -15,7 +24,7 @@ const getAllFlights = async (req, res) => {
       $lte: new Date(nextDay),
     },
     seatsLeft: {
-      $gte: query.seats * 1,
+      $gte: seats,
     },
   };
   console.log(mongoQuery);

@@ -55,7 +55,12 @@ const ticketSchema = new mongoose.Schema({
     default: Date.now(),
   },
   passenger: passengerSchema,
-  flightsInfo: [{ type: mongoose.Schema.Types.ObjectId, ref: "Flight" }],
+  inboundFlight: { type: mongoose.Schema.Types.ObjectId, ref: "Flight" },
+  outboundFlight: { type: mongoose.Schema.Types.ObjectId, ref: "Flight" },
+  seats: {
+    type: Number,
+    default: 1,
+  },
 });
 
 const Ticket = mongoose.model("Ticket", ticketSchema);
