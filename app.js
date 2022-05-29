@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const flightsRouter = require("./routes/flights");
 const ticketsRouter = require("./routes/tickets");
+const authRouter = require("./routes/auth");
+const usersRouter = require("./routes/users");
 
 const app = express();
 
@@ -14,6 +16,8 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use("/api/auth", authRouter);
+app.use("/api/users", usersRouter);
 app.use("/api/flights", flightsRouter);
 app.use("/api/tickets", ticketsRouter);
 

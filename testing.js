@@ -1,11 +1,9 @@
 const { default: mongoose } = require("mongoose");
 const Flight = require("./models/Flight");
 const Ticket = require("./models/Ticket");
+const User = require("./models/User");
 
 require("dotenv").config({ path: "./.env.local" });
-
-// simple script that will modify
-// flights data according to new flight schema
 
 const CONNECTION_STRING = process.env.CONNECTION_STRING;
 
@@ -14,6 +12,7 @@ const CONNECTION_STRING = process.env.CONNECTION_STRING;
     await mongoose.connect(CONNECTION_STRING);
     console.log("Connected to db");
 
+    await Ticket.deleteMany({});
     await mongoose.disconnect();
   } catch (e) {
     console.error(e);
